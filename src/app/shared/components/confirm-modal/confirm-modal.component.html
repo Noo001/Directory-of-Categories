@@ -1,0 +1,25 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Confirmation</h2>
+      <button class="btn-close" (click)="onClose()" [disabled]="isDeleting()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <p class="confirm-text">Sure to delete this element?</p>
+      @if (itemName()) {
+        <p class="confirm-item">{{ itemName() }}</p>
+      }
+      @if (error()) {
+        <div class="server-error">{{ error() }}</div>
+      }
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="onClose()" [disabled]="isDeleting()">Close</button>
+      <button class="btn-danger" (click)="onConfirm()" [disabled]="isDeleting()">
+        {{ isDeleting() ? 'Deleting...' : 'Delete' }}
+      </button>
+    </div>
+  </div>
+</div>

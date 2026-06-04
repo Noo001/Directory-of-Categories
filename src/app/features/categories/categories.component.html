@@ -1,0 +1,102 @@
+<div class="categories-page">
+  <div class="page-header">
+    <h1 class="page-title">Categories</h1>
+    @if (canEdit()) {
+      <button class="btn-add" (click)="openAddModal()">
+        <span class="btn-add-icon">+</span>
+        <span>Add</span>
+      </button>
+    }
+  </div>
+
+  <div class="search-box">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Search"
+      [ngModel]="searchText()"
+      (ngModelChange)="onSearch($event)"
+    />
+  </div>
+
+  <div class="table-container" #scrollContainer (scroll)="onScroll()">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th class="sortable" (click)="onSort()">
+            Name
+            @if (sortDesc()) {
+              <span class="sort-icon">▼</span>
+            } @else {
+              <span class="sort-icon">▲</span>
+            }
+          </th>
+          @if (canEdit()) {
+            <th class="actions-col"></th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of items(); track trackById($index, item)) {
+          <tr class="table-row" (click)="openEditModal(item)">
+            <td class="cell-name">{{ item.name }}</td>
+            @if (canEdit()) {
+              <td class="actions-cell">
+                <button
+                  class="btn-delete"
+                  (click)="$event.stopPropagation(); openDeleteModal(item)"
+                  title="Delete"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+                  </svg>
+                </button>
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    @if (isLoading()) {
+      <div class="loading-indicator">Loading...</div>
+    }
+
+    @if (!hasMore() && items().length > 0) {
+      <div class="no-more">No more items</div>
+    }
+
+    @if (items().length === 0 && !isLoading()) {
+      <div class="empty-state">No categories found</div>
+    }
+  </div>
+</div>
+
+@if (showAddModal()) {
+  <app-category-modal
+    mode="add"
+    [canEdit]="true"
+    (close)="closeModals()"
+    (saved)="onSaved()"
+  />
+}
+
+@if (showEditModal()) {
+  <app-category-modal
+    mode="edit"
+    [item]="selectedItem()!"
+    [canEdit]="canEdit()"
+    (close)="closeModals()"
+    (saved)="onSaved()"
+  />
+}
+
+@if (showDeleteModal()) {
+  <app-confirm-modal
+    [itemName]="selectedItem()?.name ?? ''"
+    [error]="deleteError()"
+    (close)="closeModals()"
+    (confirmed)="onDeleteConfirmed()"
+  />
+}

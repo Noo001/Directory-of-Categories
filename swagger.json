@@ -1,0 +1,3098 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Zidium Front",
+    "version": "v1"
+  },
+  "paths": {
+    "/front/categories": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "operationId": "GetAll",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "sortDesc",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zidium.WebService.Front.Dictionaries.Categories.Dto.CategoryListDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Categories"
+        ],
+        "operationId": "Add",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.EditCategoryDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.EditCategoryDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.EditCategoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/categories/{id}": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "operationId": "GetById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zidium.WebService.Front.CategoryDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Categories"
+        ],
+        "operationId": "Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.EditCategoryDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.EditCategoryDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.EditCategoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Categories"
+        ],
+        "operationId": "Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/categories/name-exists": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "operationId": "NameExists",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/header/{componentId}": {
+      "get": {
+        "tags": [
+          "Component Header"
+        ],
+        "summary": "Получение общей информации о компоненте для шапки детализации",
+        "operationId": "GetHeader",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentHeaderDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/health/{componentId}": {
+      "get": {
+        "tags": [
+          "Component Health"
+        ],
+        "summary": "Получение данных для детализации компонента, закладка Health",
+        "operationId": "GetHealth",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Начало интервала в Time machine",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "Конец интервала в Time machine",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "description": "Id категории (null - общая)",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentHealthDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/health/{componentId}/moment": {
+      "get": {
+        "tags": [
+          "Component Health"
+        ],
+        "summary": "Получение здоровья компонента на указанный момент времени",
+        "operationId": "GetHealthAtMoment",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "at",
+            "in": "query",
+            "description": "Момент времени (null - сейчас)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "description": "Id категории (null - общая)",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentHealthAtMomentDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/health/{componentId}/status-history": {
+      "get": {
+        "tags": [
+          "Component Health"
+        ],
+        "summary": "Получение истории статусов компонента",
+        "operationId": "GetStatusHistory",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Начало интервала в Time machine",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "Конец интервала в Time machine",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "description": "Id категории (null - общая)",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Размер страницы",
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "Номер страницы, нумерация с 0",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "sortDesc",
+            "in": "query",
+            "description": "Сортировать по убыванию или по возрастанию",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentStatusHistoryItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/health/{componentId}/health-history": {
+      "get": {
+        "tags": [
+          "Component Health"
+        ],
+        "summary": "Получение истории здоровья компонента",
+        "operationId": "GetHealthHistory",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Начало интервала в Time machine",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "Конец интервала в Time machine",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "description": "Id категории (null - общая)",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Размер страницы",
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "Номер страницы, нумерация с 0",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "sortDesc",
+            "in": "query",
+            "description": "Сортировать по убыванию или по возрастанию",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentHealthHistoryItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/health/{componentId}/health-reasons": {
+      "get": {
+        "tags": [
+          "Component Health"
+        ],
+        "summary": "Получение причин здоровья для компонента",
+        "operationId": "GetHealthReasons",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "at",
+            "in": "query",
+            "description": "Момент времени (null - сейчас)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "description": "Id категории (null - общая)",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentHealthReasonDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/health-formula/{componentId}": {
+      "get": {
+        "tags": [
+          "Component Health Formula"
+        ],
+        "summary": "Получение формулы здоровья для компонента",
+        "operationId": "GetHealthFormula",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "at",
+            "in": "query",
+            "description": "Момент времени (null - сейчас)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "description": "Id категории (null - общая)",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentHealthFormulaItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/info/{componentId}": {
+      "get": {
+        "tags": [
+          "Component Info"
+        ],
+        "summary": "Получение информации о компоненте",
+        "operationId": "GetInfo",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentInfoItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/links/{componentId}": {
+      "get": {
+        "tags": [
+          "Component Links"
+        ],
+        "summary": "Получение ссылок компонента",
+        "operationId": "GetLinks",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentLinksDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Component Links"
+        ],
+        "summary": "Установка связи влияния",
+        "operationId": "SetLink",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента, на который влияет связь",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Данные компонента, который влияет",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetComponentLinkRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetComponentLinkRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetComponentLinkRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Component Links"
+        ],
+        "summary": "Удаление связи влияния",
+        "operationId": "DeleteLink",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента, на который влияет связь",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sourceComponentId",
+            "in": "query",
+            "description": "Id компонента, который влияет",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/settings/{componentId}": {
+      "get": {
+        "tags": [
+          "Component Settings"
+        ],
+        "summary": "Получение настроек компонента",
+        "operationId": "Get",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentSettingsDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Component Settings"
+        ],
+        "summary": "Изменение настроек компонента",
+        "operationId": "Update",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Данные компонента",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentSettingsEditableDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentSettingsEditableDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentSettingsEditableDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Component Settings"
+        ],
+        "summary": "Удаление компонента",
+        "operationId": "Delete",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/settings": {
+      "post": {
+        "tags": [
+          "Component Settings"
+        ],
+        "summary": "Добавление компонента",
+        "operationId": "Add",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "query",
+            "description": "Id Родительского компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Данные компонента",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentSettingsEditableDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentSettingsEditableDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentSettingsEditableDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/settings/{componentId}/enable": {
+      "post": {
+        "tags": [
+          "Component Settings"
+        ],
+        "summary": "Включение компонента",
+        "operationId": "Enable",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/settings/{componentId}/disable": {
+      "post": {
+        "tags": [
+          "Component Settings"
+        ],
+        "summary": "Отключение компонента",
+        "operationId": "Disable",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/settings/{componentId}/system-name-exists": {
+      "get": {
+        "tags": [
+          "Component Settings"
+        ],
+        "summary": "Проверка существования дочернего компонента с указанным системным названием",
+        "operationId": "SystemNameExists",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id родительского компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "childComponentId",
+            "in": "query",
+            "description": "Id существующего дочернего компонента (null при добавлении)",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "systemName",
+            "in": "query",
+            "description": "Системное название",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/subscriptions/{componentId}": {
+      "get": {
+        "tags": [
+          "Component Subscriptions"
+        ],
+        "summary": "Получение итоговых подписок для компонента",
+        "operationId": "GetTotal",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentTotalSubscriptionDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/subscriptions/{componentId}/for-channel": {
+      "get": {
+        "tags": [
+          "Component Subscriptions"
+        ],
+        "summary": "Получение подписок для компонента и канала",
+        "operationId": "GetForChannel",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "description": "Id канала",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentChannelSubscriptionDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/tree": {
+      "get": {
+        "tags": [
+          "Component Tree"
+        ],
+        "summary": "Получение дерева компонентов",
+        "operationId": "GetTree",
+        "parameters": [
+          {
+            "name": "expandComponents",
+            "in": "query",
+            "description": "Id компонентов, которые необходимо раскрыть сразу",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
+            "name": "componentId",
+            "in": "query",
+            "description": "Id компонента, который нужно показать в дереве",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "indicatorId",
+            "in": "query",
+            "description": "Id показателя, который нужно показать в дереве",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Начало интервала в Time machine",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "Конец интервала в Time machine",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "description": "Id категории (null - общая)",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentTreeResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/tree/{componentId}": {
+      "get": {
+        "tags": [
+          "Component Tree"
+        ],
+        "summary": "Раскрытие компонента в дереве",
+        "operationId": "GetItem",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Начало интервала в Time machine",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "Конец интервала в Time machine",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "description": "Id категории (null - общая)",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentTreeItemExpandedDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/components/tree/{componentId}/permissions": {
+      "get": {
+        "tags": [
+          "Component Tree"
+        ],
+        "summary": "Получение прав доступа к компоненту",
+        "operationId": "GetPermissions",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentTreeItemPermissions"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/logon": {
+      "post": {
+        "tags": [
+          "Logon"
+        ],
+        "operationId": "Logon",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogonRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogonRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogonRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogonResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/front/logon/current-user": {
+      "get": {
+        "tags": [
+          "Logon"
+        ],
+        "operationId": "GetCurrentUser",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/logon/refresh-token": {
+      "post": {
+        "tags": [
+          "Logon"
+        ],
+        "operationId": "RefreshToken",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/front/selector/categories": {
+      "get": {
+        "tags": [
+          "Selectors"
+        ],
+        "summary": "Получение списка для выбора категории",
+        "operationId": "GetCategories",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Zidium.WebService.Front.SelectorDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/selector/components/{componentId}/full-name": {
+      "get": {
+        "tags": [
+          "Selectors"
+        ],
+        "summary": "Получение полного имени компонента",
+        "operationId": "GetFullName",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/selector/components": {
+      "get": {
+        "tags": [
+          "Selectors"
+        ],
+        "summary": "Получение дерева компонентов для выбора",
+        "operationId": "GetTree",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "query",
+            "description": "Id уже выбранного компонента",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Строка поиска",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentSelectorDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/selector/components/{componentId}": {
+      "get": {
+        "tags": [
+          "Selectors"
+        ],
+        "summary": "Раскрытие компонента в дереве",
+        "operationId": "GetItem",
+        "parameters": [
+          {
+            "name": "componentId",
+            "in": "path",
+            "description": "Id компонента",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Строка поиска",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentSelectorDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/selector/component-types": {
+      "get": {
+        "tags": [
+          "Selectors"
+        ],
+        "summary": "Получение списка для выбора типа компонента",
+        "operationId": "GetComponentTypes",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Zidium.WebService.Front.SelectorDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/subscriptions/for-object": {
+      "post": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "Сохранение подписки для объекта",
+        "operationId": "SaveForObject",
+        "requestBody": {
+          "description": "Данные подписки",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.ObjectSubscriptionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.ObjectSubscriptionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.ObjectSubscriptionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "Удаление подписки для объекта",
+        "operationId": "DeleteForObject",
+        "requestBody": {
+          "description": "Данные подписки",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.DeleteObjectSubscriptionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.DeleteObjectSubscriptionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.DeleteObjectSubscriptionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/front/subscriptions/default": {
+      "post": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "Сохранение подписки по умолчанию",
+        "operationId": "SaveDefault",
+        "requestBody": {
+          "description": "Данные подписки",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.DefaultSubscriptionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.DefaultSubscriptionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.DefaultSubscriptionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "Удаление подписки по умолчанию",
+        "operationId": "DeleteDefault",
+        "requestBody": {
+          "description": "Данные подписки",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.DeleteDefaultSubscriptionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.DeleteDefaultSubscriptionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zidium.WebService.Front.DeleteDefaultSubscriptionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": [ ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CurrentUserDto": {
+        "required": [
+          "displayName",
+          "timezoneOffset"
+        ],
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "timezoneOffset": {
+            "type": "string",
+            "format": "date-span"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IndicatorDataType": {
+        "enum": [
+          "String",
+          "Number",
+          "Boolean",
+          "DateTime",
+          "Json"
+        ],
+        "type": "string"
+      },
+      "LogonRequestDto": {
+        "required": [
+          "login",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "login": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LogonResponseDto": {
+        "required": [
+          "refreshToken",
+          "token",
+          "user"
+        ],
+        "type": "object",
+        "properties": {
+          "token": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "refreshToken": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/CurrentUserDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReasonSourceType": {
+        "enum": [
+          "ChildComponent",
+          "Indicator",
+          "ComponentEvent"
+        ],
+        "type": "string",
+        "description": "Тип источника причины"
+      },
+      "RefreshTokenRequestDto": {
+        "required": [
+          "refreshToken"
+        ],
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Запрос на обновление токена JWT"
+      },
+      "SetComponentLinkRequestDto": {
+        "required": [
+          "sourceComponentId",
+          "weight"
+        ],
+        "type": "object",
+        "properties": {
+          "weight": {
+            "maximum": 100,
+            "minimum": 0,
+            "type": "integer",
+            "description": "Вес (0 - 100)",
+            "format": "int32"
+          },
+          "sourceComponentId": {
+            "type": "integer",
+            "description": "Влияющий компонент",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Данные для установки связи влияния"
+      },
+      "StatusSettingsDto": {
+        "required": [
+          "criticalLevel",
+          "dangerLevel",
+          "fatalLevel",
+          "warningLevel"
+        ],
+        "type": "object",
+        "properties": {
+          "fatalLevel": {
+            "maximum": 100,
+            "minimum": 0,
+            "type": "integer",
+            "description": "Здоровье ниже этого уровня будет статусом Fatal",
+            "format": "int32"
+          },
+          "criticalLevel": {
+            "maximum": 100,
+            "minimum": 0,
+            "type": "integer",
+            "description": "Здоровье ниже этого уровня будет статусом Critical",
+            "format": "int32"
+          },
+          "dangerLevel": {
+            "maximum": 100,
+            "minimum": 0,
+            "type": "integer",
+            "description": "Здоровье ниже этого уровня будет статусом Danger",
+            "format": "int32"
+          },
+          "warningLevel": {
+            "maximum": 100,
+            "minimum": 0,
+            "type": "integer",
+            "description": "Здоровье ниже этого уровня будет статусом Warning",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Настройки расчёта статуса компонента"
+      },
+      "SubscriptionObjectType": {
+        "enum": [
+          "Indicator",
+          "Component",
+          "ComponentType",
+          "IndicatorType"
+        ],
+        "type": "string",
+        "description": "Тип объекта подписки"
+      },
+      "TokensResponseDto": {
+        "required": [
+          "refreshToken",
+          "token"
+        ],
+        "type": "object",
+        "properties": {
+          "token": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "refreshToken": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Ответ с токенами доступа - JWT и Refresh"
+      },
+      "Zidium.Core.Api.PropertyDto": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "maxLength": 4000,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Свойство объекта"
+      },
+      "Zidium.Core.Api.Status": {
+        "enum": [
+          "Unknown",
+          "Success",
+          "Warning",
+          "Danger",
+          "Critical",
+          "Fatal"
+        ],
+        "type": "string"
+      },
+      "Zidium.WebService.Front.CategoryDto": {
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentChannelSubscriptionDto": {
+        "required": [
+          "channelName",
+          "componentTypeId",
+          "userGroupId",
+          "userGroupName"
+        ],
+        "type": "object",
+        "properties": {
+          "channelName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "userGroupId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userGroupName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "componentTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "componentSubscription": {
+            "$ref": "#/components/schemas/Zidium.WebService.Front.ObjectSubscriptionDto"
+          },
+          "componentTypeSubscription": {
+            "$ref": "#/components/schemas/Zidium.WebService.Front.ObjectSubscriptionDto"
+          },
+          "parentComponentSubscription": {
+            "$ref": "#/components/schemas/Zidium.WebService.Front.ObjectSubscriptionDto"
+          },
+          "defaultSubscription": {
+            "$ref": "#/components/schemas/Zidium.WebService.Front.DefaultSubscriptionDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentHeaderDto": {
+        "required": [
+          "canEdit",
+          "displayName",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "displayName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "canEdit": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentHealthAtMomentDto": {
+        "required": [
+          "health",
+          "healthHistoryId",
+          "status",
+          "statusHistoryId",
+          "statusStartedAt"
+        ],
+        "type": "object",
+        "properties": {
+          "health": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Zidium.Core.Api.Status"
+          },
+          "statusStartedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "healthHistoryId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "statusHistoryId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentHealthDto": {
+        "required": [
+          "items"
+        ],
+        "type": "object",
+        "properties": {
+          "healthAndStatus": {
+            "$ref": "#/components/schemas/Zidium.WebService.Front.HealthAndStatusDto"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentStatusHistoryItemDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentHealthFormulaItemDto": {
+        "required": [
+          "damage",
+          "displayName",
+          "health",
+          "id",
+          "isLink",
+          "sourceType",
+          "weight"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "displayName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fullName": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "isLink": {
+            "type": "boolean"
+          },
+          "sourceType": {
+            "$ref": "#/components/schemas/ReasonSourceType"
+          },
+          "damage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "health": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "weight": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentHealthHistoryItemDto": {
+        "required": [
+          "health",
+          "id",
+          "startedAt",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "startedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "finishedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/Zidium.Core.Api.Status"
+          },
+          "health": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentHealthReasonDto": {
+        "required": [
+          "canExpand",
+          "damage",
+          "displayName",
+          "id",
+          "isLink",
+          "sourceType",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "displayName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "sourceType": {
+            "$ref": "#/components/schemas/ReasonSourceType"
+          },
+          "canExpand": {
+            "type": "boolean"
+          },
+          "isLink": {
+            "type": "boolean"
+          },
+          "damage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Zidium.Core.Api.Status"
+          },
+          "indicatorDataType": {
+            "$ref": "#/components/schemas/IndicatorDataType"
+          },
+          "indicatorValue": {
+            "nullable": true
+          },
+          "indicatorMessage": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentInfoItemDto": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentLinkDto": {
+        "required": [
+          "componentId",
+          "displayName",
+          "fullName",
+          "weight"
+        ],
+        "type": "object",
+        "properties": {
+          "componentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "displayName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fullName": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "weight": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentLinksDto": {
+        "required": [
+          "incomingLinks",
+          "outgoingLinks"
+        ],
+        "type": "object",
+        "properties": {
+          "incomingLinks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentLinkDto"
+            }
+          },
+          "outgoingLinks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentLinkDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentSelectorDto": {
+        "required": [
+          "canExpand",
+          "children",
+          "displayName",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "displayName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "canExpand": {
+            "type": "boolean"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentSelectorDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentSettingsDto": {
+        "required": [
+          "componentTypeId",
+          "componentTypeName",
+          "displayName",
+          "id",
+          "isEnabled",
+          "properties",
+          "statusSettings",
+          "systemName",
+          "weight"
+        ],
+        "type": "object",
+        "properties": {
+          "systemName": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "displayName": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          },
+          "weight": {
+            "maximum": 100,
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "componentTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "statusSettings": {
+            "$ref": "#/components/schemas/StatusSettingsDto"
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zidium.Core.Api.PropertyDto"
+            }
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parentComponentId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "componentTypeName": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentSettingsEditableDto": {
+        "required": [
+          "componentTypeId",
+          "displayName",
+          "isEnabled",
+          "properties",
+          "statusSettings",
+          "systemName",
+          "weight"
+        ],
+        "type": "object",
+        "properties": {
+          "systemName": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "displayName": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          },
+          "weight": {
+            "maximum": 100,
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "componentTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "statusSettings": {
+            "$ref": "#/components/schemas/StatusSettingsDto"
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zidium.Core.Api.PropertyDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentStatusHistoryItemDto": {
+        "required": [
+          "id",
+          "startedAt",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "startedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "finishedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/Zidium.Core.Api.Status"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentTotalSubscriptionDto": {
+        "required": [
+          "canChange",
+          "channelId",
+          "channelName"
+        ],
+        "type": "object",
+        "properties": {
+          "channelId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "channelName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentTotalSubscriptionItemDto"
+          },
+          "canChange": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentTotalSubscriptionItemDto": {
+        "required": [
+          "includeChildComponents",
+          "includeChildIndicators",
+          "isEnabled",
+          "minimumStatus",
+          "notifyIfGetsBetter"
+        ],
+        "type": "object",
+        "properties": {
+          "minimumStatus": {
+            "$ref": "#/components/schemas/Zidium.Core.Api.Status"
+          },
+          "minimumDurationSeconds": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "notifyIfGetsBetter": {
+            "type": "boolean"
+          },
+          "remindIntervalSeconds": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "includeChildComponents": {
+            "type": "boolean"
+          },
+          "includeChildIndicators": {
+            "type": "boolean"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentTreeEventsDto": {
+        "required": [
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/Zidium.Core.Api.Status"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentTreeIndicatorDto": {
+        "required": [
+          "dataType",
+          "displayName",
+          "id",
+          "isEnabled",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "displayName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          },
+          "dataType": {
+            "$ref": "#/components/schemas/IndicatorDataType"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Zidium.Core.Api.Status"
+          },
+          "value": {
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentTreeItemDto": {
+        "required": [
+          "canExpand",
+          "displayName",
+          "id",
+          "isEnabled",
+          "isLink",
+          "permissions"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "displayName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Zidium.Core.Api.Status"
+          },
+          "health": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "statusStartedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "isLink": {
+            "type": "boolean"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          },
+          "canExpand": {
+            "type": "boolean"
+          },
+          "permissions": {
+            "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentTreeItemPermissions"
+          },
+          "expanded": {
+            "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentTreeItemExpandedDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentTreeItemExpandedDto": {
+        "required": [
+          "childComponents",
+          "indicators"
+        ],
+        "type": "object",
+        "properties": {
+          "childComponents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentTreeItemDto"
+            },
+            "readOnly": true
+          },
+          "indicators": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentTreeIndicatorDto"
+            },
+            "readOnly": true
+          },
+          "events": {
+            "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentTreeEventsDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentTreeItemPermissions": {
+        "required": [
+          "canEdit"
+        ],
+        "type": "object",
+        "properties": {
+          "canEdit": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ComponentTreeResponseDto": {
+        "required": [
+          "items"
+        ],
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zidium.WebService.Front.ComponentTreeItemDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.DefaultSubscriptionDto": {
+        "required": [
+          "channelId",
+          "isEnabled",
+          "minimumStatus",
+          "notifyIfGetsBetter",
+          "userGroupId"
+        ],
+        "type": "object",
+        "properties": {
+          "userGroupId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "channelId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minimumStatus": {
+            "$ref": "#/components/schemas/Zidium.Core.Api.Status"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          },
+          "minimumDurationSeconds": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "remindIntervalSeconds": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "notifyIfGetsBetter": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.DeleteDefaultSubscriptionDto": {
+        "required": [
+          "channelId",
+          "userGroupId"
+        ],
+        "type": "object",
+        "properties": {
+          "userGroupId": {
+            "type": "integer",
+            "description": "Id группы пользователей",
+            "format": "int32"
+          },
+          "channelId": {
+            "type": "integer",
+            "description": "Id канала",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.DeleteObjectSubscriptionDto": {
+        "required": [
+          "channelId",
+          "objectId",
+          "objectType",
+          "userGroupId"
+        ],
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "$ref": "#/components/schemas/SubscriptionObjectType"
+          },
+          "objectId": {
+            "type": "integer",
+            "description": "Id объекта",
+            "format": "int32"
+          },
+          "userGroupId": {
+            "type": "integer",
+            "description": "Id группы пользователей",
+            "format": "int32"
+          },
+          "channelId": {
+            "type": "integer",
+            "description": "Id канала",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.Dictionaries.Categories.Dto.CategoryListDto": {
+        "required": [
+          "canEdit",
+          "items"
+        ],
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zidium.WebService.Front.CategoryDto"
+            }
+          },
+          "canEdit": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.EditCategoryDto": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.HealthAndStatusDto": {
+        "required": [
+          "health",
+          "status",
+          "statusStartedAt"
+        ],
+        "type": "object",
+        "properties": {
+          "health": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Zidium.Core.Api.Status"
+          },
+          "statusStartedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.ObjectSubscriptionDto": {
+        "required": [
+          "channelId",
+          "includeChildComponents",
+          "includeChildIndicators",
+          "isEnabled",
+          "minimumStatus",
+          "notifyIfGetsBetter",
+          "objectId",
+          "objectType",
+          "userGroupId"
+        ],
+        "type": "object",
+        "properties": {
+          "userGroupId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "channelId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minimumStatus": {
+            "$ref": "#/components/schemas/Zidium.Core.Api.Status"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          },
+          "minimumDurationSeconds": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "remindIntervalSeconds": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "notifyIfGetsBetter": {
+            "type": "boolean"
+          },
+          "objectType": {
+            "$ref": "#/components/schemas/SubscriptionObjectType"
+          },
+          "objectId": {
+            "type": "integer",
+            "description": "Id объекта",
+            "format": "int32"
+          },
+          "includeChildComponents": {
+            "type": "boolean"
+          },
+          "includeChildIndicators": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Zidium.WebService.Front.SelectorDto": {
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "apiAuth": {
+        "type": "apiKey",
+        "description": "Api Token",
+        "name": "Token",
+        "in": "header"
+      },
+      "jwtAuth": {
+        "type": "http",
+        "description": "Bearer Token",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

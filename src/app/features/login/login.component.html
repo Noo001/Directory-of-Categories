@@ -1,0 +1,51 @@
+<div class="login-page">
+  <div class="login-card">
+    <h1 class="login-title">Logon to Zidium</h1>
+
+    <div class="form-group">
+      <label class="form-label" for="login">Login</label>
+      <input
+        id="login"
+        type="text"
+        class="form-input"
+        [class.error]="loginInvalid"
+        [(ngModel)]="login"
+        (blur)="loginTouched.set(true)"
+        [disabled]="isLoading()"
+      />
+      @if (loginInvalid) {
+        <span class="error-text">Field is required</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        class="form-input"
+        [class.error]="passwordInvalid"
+        [(ngModel)]="password"
+        (blur)="passwordTouched.set(true)"
+        [disabled]="isLoading()"
+      />
+      @if (passwordInvalid) {
+        <span class="error-text">Field is required</span>
+      }
+    </div>
+
+    @if (serverError()) {
+      <div class="server-error">{{ serverError() }}</div>
+    }
+
+    <div class="form-actions">
+      <button
+        class="btn-primary"
+        [disabled]="isLoading()"
+        (click)="onLogin()"
+      >
+        Logon
+      </button>
+    </div>
+  </div>
+</div>
